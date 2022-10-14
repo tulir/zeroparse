@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	"github.com/rs/zerolog"
@@ -15,6 +17,11 @@ import (
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	writer := &zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339}
+	// Ignore SIGINT/SIGTERM, the process will exit when stdin is closed.
+	// If we don't do this, then pressing ctrl+c will make zeroparse exit
+	// without reading whatever logs are produced by the program during shutdown.
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 	for {
 		if line, err := reader.ReadBytes('\n'); err != nil {
 			// Don't log EOFs as that would just create log unnecessary noise when finishing reading logs
