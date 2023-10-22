@@ -9,14 +9,13 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 
 	"github.com/rs/zerolog"
 )
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
-	writer := &zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339}
+	writer := &zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: "2006-01-02T15:04:05.999Z07:00"}
 	// Ignore SIGINT/SIGTERM, the process will exit when stdin is closed.
 	// If we don't do this, then pressing ctrl+c will make zeroparse exit
 	// without reading whatever logs are produced by the program during shutdown.
