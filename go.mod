@@ -1,8 +1,10 @@
 module go.mau.fi/zeroparse
 
-go 1.19
+go 1.22.0
 
-require github.com/rs/zerolog v1.31.0
+toolchain go1.23.2
+
+require github.com/rs/zerolog v1.33.0
 
 require (
 	github.com/mattn/go-colorable v0.1.13 // indirect

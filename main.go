@@ -14,6 +14,10 @@ import (
 )
 
 func main() {
+        // Swap trace and debug level colors so trace pops out the least
+        zerolog.LevelColors[zerolog.TraceLevel] = 0
+        zerolog.LevelColors[zerolog.DebugLevel] = 34 // blue
+
 	reader := bufio.NewReader(os.Stdin)
 	writer := &zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: "2006-01-02T15:04:05.999Z07:00"}
 	// Ignore SIGINT/SIGTERM, the process will exit when stdin is closed.
